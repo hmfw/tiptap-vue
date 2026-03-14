@@ -26,43 +26,102 @@
     margin: 0 2px;
   }
 }
-.tiptap p.is-editor-empty:first-child::before {
-  color: #adb5bd;
-  content: attr(data-placeholder);
-  float: left;
-  height: 0;
-  pointer-events: none;
-}
 
-[data-resize-handle] {
-  width: 8px;
-  height: 8px;
-  background: #fff;
-  border: 1.5px solid #6c6c6c;
-  border-radius: 50%;
-  z-index: 10;
-
-  &[data-resize-handle='bottom-right'],
-  &[data-resize-handle='top-left'] {
-    cursor: nwse-resize;
+.tiptap {
+  p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
   }
 
-  &[data-resize-handle='bottom-left'],
-  &[data-resize-handle='top-right'] {
-    cursor: nesw-resize;
+  img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    margin: 3px;
   }
-}
 
-// 禁止 img 捕获鼠标事件，确保 resize handles 可响应拖拽
-[data-resize-wrapper] img {
-  pointer-events: none;
-  user-select: none;
-}
+  .ProseMirror-selectednode {
+    img {
+      outline: 3px solid #6a00f5;
+    }
 
-// 图片选中边框
-.ProseMirror-selectednode [data-resize-wrapper] {
-  outline: 2px solid #409eff;
-  border-radius: 2px;
+    [data-resize-handle] {
+      position: absolute;
+      background: transparent;
+      z-index: 10;
+
+      /* Corner handles */
+      &[data-resize-handle='top-left'],
+      &[data-resize-handle='top-right'],
+      &[data-resize-handle='bottom-left'],
+      &[data-resize-handle='bottom-right'] {
+        width: 8px;
+        height: 8px;
+      }
+
+      &[data-resize-handle='top-left'] {
+        top: -4px;
+        left: -4px;
+        cursor: nwse-resize;
+      }
+
+      &[data-resize-handle='top-right'] {
+        top: -4px;
+        right: -4px;
+        cursor: nesw-resize;
+      }
+
+      &[data-resize-handle='bottom-left'] {
+        bottom: -4px;
+        left: -4px;
+        cursor: nesw-resize;
+      }
+
+      &[data-resize-handle='bottom-right'] {
+        bottom: -4px;
+        right: -4px;
+        cursor: nwse-resize;
+      }
+
+      /* Edge handles */
+      &[data-resize-handle='top'],
+      &[data-resize-handle='bottom'] {
+        height: 6px;
+        left: 8px;
+        right: 8px;
+      }
+
+      &[data-resize-handle='top'] {
+        top: -3px;
+        cursor: ns-resize;
+      }
+
+      &[data-resize-handle='bottom'] {
+        bottom: -3px;
+        cursor: ns-resize;
+      }
+
+      &[data-resize-handle='left'],
+      &[data-resize-handle='right'] {
+        width: 6px;
+        top: 8px;
+        bottom: 8px;
+      }
+
+      &[data-resize-handle='left'] {
+        left: -3px;
+        cursor: ew-resize;
+      }
+
+      &[data-resize-handle='right'] {
+        right: -3px;
+        cursor: ew-resize;
+      }
+    }
+  }
 }
 
 .tiptap-image-upload {
@@ -163,8 +222,4 @@
       }
     }
   }
-}
-
-.ProseMirror-selectednode .tiptap-image-upload-drag-area {
-  border-color: #409eff;
 }

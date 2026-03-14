@@ -64,22 +64,26 @@ const handleFiles = async (files: File[]) => {
   }
 
   const urls = (await Promise.all(files.map(uploadFile))).filter((u): u is string => !!u)
-
+  // debugger
   if (urls.length > 0) {
     const pos = props.getPos()
     if (typeof pos !== 'number') return
 
-    const imageNodes = urls.map((src, i) => ({
-      type: props.extension.options.type as string,
-      attrs: { src, alt: files[i]?.name.replace(/\.[^/.]+$/, '') || '' },
-    }))
-
+    // debugger
     props.editor
       .chain()
       .focus()
       .deleteRange({ from: pos, to: pos + props.node.nodeSize })
-      .insertContentAt(pos, imageNodes)
       .run()
+    urls.forEach((src) => {
+      console.log(src)
+      props.editor.commands.setImage({ src })
+    })
+    // .setImage({ src: pos})
+    //   urls.map((src, i) => ({
+
+    // }))
+    // .run()
   }
 }
 

@@ -2,8 +2,8 @@
 import { provide } from 'vue'
 import StarterKit from '@tiptap/starter-kit'
 import { useEditor, EditorContent } from '@tiptap/vue-3'
-import { TaskItem, TaskList } from "@tiptap/extension-list"
-import { TextAlign } from "@tiptap/extension-text-align"
+import { TaskItem, TaskList } from '@tiptap/extension-list'
+import { TextAlign } from '@tiptap/extension-text-align'
 import { Placeholder } from '@tiptap/extensions'
 import { Image } from '@tiptap/extension-image'
 
@@ -27,7 +27,25 @@ const editor = useEditor({
     TextAlign.configure({ types: ['heading', 'paragraph'] }),
     TaskList,
     TaskItem.configure({ nested: true }),
-    Image.configure({ allowBase64: true, resize: { enabled: true } }),
+    Image.configure({
+      allowBase64: true,
+      resize: {
+        enabled: true,
+        directions: [
+          'top',
+          'right',
+          'bottom',
+          'left',
+          'top-right',
+          'top-left',
+          'bottom-right',
+          'bottom-left',
+        ],
+        minWidth: 50,
+        minHeight: 50,
+        alwaysPreserveAspectRatio: false,
+      },
+    }),
     ImageUpload,
   ],
 })
