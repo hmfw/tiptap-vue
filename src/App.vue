@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { provide } from 'vue'
 import StarterKit from '@tiptap/starter-kit'
-import { Editor, EditorContent } from '@tiptap/vue-3'
+import { useEditor, EditorContent } from '@tiptap/vue-3'
+import { TaskItem, TaskList } from "@tiptap/extension-list"
+import { TextAlign } from "@tiptap/extension-text-align"
 import { Placeholder } from '@tiptap/extensions'
 
 // --- Tiptap UI ---
@@ -12,14 +15,19 @@ import ImageButton from './tiptap-ui/ImageButton'
 
 import './editor.scss'
 
-const editor = new Editor({
+const editor = useEditor({
   extensions: [
     StarterKit,
     Placeholder.configure({
       placeholder: '请输入内容...',
     }),
+    TextAlign.configure({ types: ['heading', 'paragraph'] }),
+    TaskList,
+    TaskItem.configure({ nested: true }),
   ],
 })
+
+provide('editor', editor)
 </script>
 <template>
   <div class="tiptap-editor">

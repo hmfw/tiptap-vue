@@ -9,6 +9,7 @@ const iconButtonProps = {
   tooltip: { type: String, required: true },
   isActive: { type: Boolean },
   disabled: { type: Boolean, default: false },
+  onClick: { type: Function as PropType<() => void> },
 }
 
 export default defineComponent({
@@ -18,7 +19,13 @@ export default defineComponent({
     return () => {
       return (
         <ElTooltip showArrow={false} offset={6} content={props.tooltip}>
-          <ElButton text icon={props.icon} class="tiptap-button"/>
+          <ElButton
+            text
+            icon={props.icon}
+            class={['tiptap-button', { 'is-active': props.isActive }]}
+            disabled={props.disabled}
+            onClick={props.onClick}
+          />
         </ElTooltip>
       )
     }
