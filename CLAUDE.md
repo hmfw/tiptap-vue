@@ -2,62 +2,33 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Commands
+## 命令
 
 ```bash
-pnpm dev        # Start dev server (http://localhost:5173)
-pnpm build      # Type-check (vue-tsc) then build production bundle
-pnpm preview    # Preview production build locally
+pnpm dev        # 启动开发服务器 http://localhost:5173
+pnpm build      # 类型检查（vue-tsc）后构建生产包
+pnpm preview    # 预览生产构建
 ```
 
-No test runner is configured in this project.
+无测试框架。
 
-## Architecture
+## 架构
 
-This is a Vue 3 + TypeScript + Vite project implementing a Tiptap rich text editor with a custom toolbar. Uses pnpm as the package manager.
+Vue 3 + TypeScript + Vite 的 Tiptap 富文本编辑器，使用 pnpm 管理包。
 
-### Key Dependencies
-- **Tiptap 3.20.0** (`@tiptap/core`, `@tiptap/vue-3`, `@tiptap/starter-kit`, `@tiptap/extensions`) — editor framework
-- **Element Plus 2.13.3** — UI components (auto-imported via `unplugin-element-plus`)
-- **Vue 3.5.25** with JSX support via `@vitejs/plugin-vue-jsx`
+**核心依赖**：Tiptap 3.x（`@tiptap/core`、`@tiptap/vue-3`、`@tiptap/starter-kit`、`@tiptap/extensions`、各 `@tiptap/extension-*`）、Element Plus 2.x（UI 组件，通过 `unplugin-element-plus` 自动导入）。
 
-### Code Organization
+### 编辑器实例共享
 
-```
-src/
-├── App.vue                # Root: initializes editor, renders toolbar + EditorContent
-├── tiptap-utils.ts        # ~589 lines of editor utility functions (the core logic layer)
-├── editor.scss            # Toolbar and editor styles
-├── components/
-│   └── IconButton.tsx     # Base button wrapping ElButton + ElTooltip
-├── tiptap-ui/             # Toolbar button groups (5 components)
-│   ├── UndoRedoButton.tsx
-│   ├── TextStyleButton.tsx   # Bold, Italic, Strike, Underline, Link
-│   ├── TextAlignButton.tsx
-│   ├── ListButton.tsx
-│   └── ImageButton.tsx
-├── tiptap-icons/          # 16 SVG icon components (TSX)
-└── tiptap-extension/      # Empty — prepared for custom Tiptap extensions
-```
+`App.vue` 用 `useEditor()` 创建编辑器，通过 `provide('editor', editor)` 注入。各工具栏组件用 `inject<ShallowRef<Editor | undefined>>('editor')` 获取实例。
 
-### Component Patterns
-- `.vue` files use `<script setup>` with TypeScript
-- Toolbar UI components (`tiptap-ui/`, `tiptap-icons/`, `components/`) use `defineComponent` with JSX render functions (`.tsx`)
-- All editor operations go through utilities in `tiptap-utils.ts`
+### 组件约定
 
-### tiptap-utils.ts Structure
-Organized utility functions for:
-- **Schema validation**: `isMarkInSchema()`, `isNodeInSchema()`, `isExtensionAvailable()`
-- **Selection/navigation**: `focusNextNode()`, `isNodeTypeSelected()`, `getSelectedNodesOfType()`, `getSelectedBlockNodes()`
-- **Node/position operations**: `findNodeAtPosition()`, `findNodePosition()`, `updateNodesAttr()`
-- **URL/file handling**: `sanitizeUrl()`, `isAllowedUri()`, `handleImageUpload()` (currently mocked)
-- **Keyboard shortcuts**: `isMac()`, `formatShortcutKey()`, `parseShortcutKeys()`
-- `MAX_FILE_SIZE = 5MB` constant for image uploads
+- `.vue` 文件用 `<script setup>` + TypeScript
+- 工具栏组件（`tiptap-ui/`、`components/`、`tiptap-icons/`）均用 `defineComponent` + JSX 渲染函数（`.tsx`）
+- `IconButton.tsx` 是所有工具栏按钮的基础组件，支持 `onClick`、`disabled`、`isActive` props
+- SVG 图标统一放在 `tiptap-icons/`，用 `fill="currentColor"` 支持主题色
 
-### TypeScript Configuration
-Strict mode is enabled (`tsconfig.app.json`): unused variables/parameters are errors. Extends `@vue/tsconfig/tsconfig.dom.json`.
+### TypeScript
 
-### Known State
-- Image upload in `handleImageUpload()` is mocked (simulates progress, returns a placeholder URL)
-- UI tooltip text is in Chinese (不 i18n-aware)
-- `tiptap-extension/` directory is empty, reserved for future custom extensions
+strict 模式开启，未使用的变量/参数会报错。
