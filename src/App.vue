@@ -5,7 +5,7 @@ import { useEditor, EditorContent } from '@tiptap/vue-3'
 import { TaskItem, TaskList } from '@tiptap/extension-list'
 import { TextAlign } from '@tiptap/extension-text-align'
 import { Placeholder } from '@tiptap/extensions'
-import { Image } from '@tiptap/extension-image'
+import { ImageWithAlign } from './tiptap-extension/ImageWithAlign'
 import { Table, TableCell, TableHeader, TableRow } from '@tiptap/extension-table'
 import { Mathematics } from '@tiptap/extension-mathematics'
 
@@ -21,6 +21,7 @@ import TableButton from './tiptap-ui/TableButton'
 import TableControls from './tiptap-ui/TableControls'
 import MathButton from './tiptap-ui/MathButton'
 import MathEditDialog from './tiptap-ui/MathEditDialog.vue'
+import ImageControls from './tiptap-ui/ImageControls'
 
 import 'katex/dist/katex.min.css'
 import './editor.scss'
@@ -48,7 +49,7 @@ const editor = useEditor({
     TextAlign.configure({ types: ['heading', 'paragraph'] }),
     TaskList,
     TaskItem.configure({ nested: true }),
-    Image.configure({
+    ImageWithAlign.configure({
       allowBase64: true,
       resize: {
         enabled: true,
@@ -97,13 +98,12 @@ provide('editor', editor)
       <TextAlignButton />
       <div class="tiptap-separator"></div>
       <ImageButton />
-      <div class="tiptap-separator"></div>
       <TableButton />
-      <div class="tiptap-separator"></div>
       <MathButton />
     </div>
     <EditorContent class="tiptap-content" :editor="editor" />
     <TableControls />
+    <ImageControls />
     <MathEditDialog
       v-model:visible="mathEditVisible"
       :latex="mathEditLatex"

@@ -125,9 +125,24 @@
     margin: 3px;
   }
 
-  .ProseMirror-selectednode {
+  [data-resize-wrapper] {
     img {
-      outline: 3px solid #6a00f5;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+
+  [data-resize-container][data-align='center'] {
+    justify-content: center;
+  }
+
+  [data-resize-container][data-align='right'] {
+    justify-content: flex-end;
+  }
+
+  .ProseMirror-selectednode {
+    [data-resize-wrapper] {
+      outline: 2px solid #409eff;
     }
 
     [data-resize-handle] {
@@ -333,6 +348,10 @@
   margin: 0.5rem 0;
   cursor: pointer;
 
+  .ProseMirror-selectednode & .tiptap-image-upload-drag-area {
+    border-color: #409eff;
+  }
+
   input[type='file'] {
     display: none;
   }
@@ -430,7 +449,7 @@
 }
 
 .tiptap-mathematics-render {
-  padding: 0 0.25rem;
+  padding: 0 0.5rem;
   border-radius: 0.25rem;
 
   &--editable {
@@ -461,4 +480,59 @@
     padding: 0.5rem;
     border-radius: 0.25rem;
   }
+}
+
+.image-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 8px;
+  background: #fff;
+  border-radius: 9999px;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+  pointer-events: all;
+}
+
+.image-controls-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #344054;
+  line-height: 0;
+  transition:
+    background 0.15s,
+    color 0.15s;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    background: #f5f5f5;
+  }
+
+  &.is-active {
+    background: #e8f4ff;
+    color: #409eff;
+  }
+}
+
+.image-controls-separator {
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  background: #e4e7ed;
+  margin: 0 4px;
+  flex-shrink: 0;
 }
