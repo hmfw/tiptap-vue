@@ -17,6 +17,7 @@ import TextAlignButton from './tiptap-ui/TextAlignButton'
 import ListButton from './tiptap-ui/ListButton'
 import ImageButton from './tiptap-ui/ImageButton'
 import TableButton from './tiptap-ui/TableButton'
+import TableControls from './tiptap-ui/TableControls'
 
 import './editor.scss'
 
@@ -73,6 +74,7 @@ provide('editor', editor)
       <div class="tiptap-separator"></div>
       <TableButton />
     </div>
-    <EditorContent class="editor-content" :editor="editor" />
+    <EditorContent class="tiptap-content" :editor="editor" />
+    <TableControls />
   </div>
 </template>

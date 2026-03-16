@@ -28,6 +28,12 @@
 }
 
 .tiptap {
+  padding: 8px;
+  min-height: 200px;
+  :first-child {
+    margin-top: 0;
+  }
+  
   p.is-editor-empty:first-child::before {
     color: #adb5bd;
     content: attr(data-placeholder);
@@ -81,6 +87,25 @@
       background-color: #409eff;
       cursor: col-resize;
       pointer-events: none;
+    }
+
+    td.tcc-cell-focused,
+    th.tcc-cell-focused {
+      outline: 2px solid #5b21b6;
+      outline-offset: -2px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #5b21b6;
+        pointer-events: none;
+        z-index: 3;
+      }
     }
   }
 
@@ -243,6 +268,59 @@
   .table-picker-x {
     color: #98a2b3;
     font-size: 13px;
+  }
+}
+
+.tiptap-editor {
+  position: relative;
+}
+
+.table-cell-controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+
+  .tcc-btn {
+    position: absolute;
+    pointer-events: all;
+    border-radius: 6px;
+    background: #f0f0f0;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: background 0.15s, border-color 0.15s;
+    padding: 0;
+
+    &:hover {
+      background: #e5e5e5;
+      border-color: #ccc;
+    }
+
+    &.tcc-btn--col {
+      width: 36px;
+      height: 20px;
+    }
+
+    &.tcc-btn--row {
+      width: 20px;
+      height: 36px;
+    }
+
+    &.tcc-btn--add {
+      width: 24px;
+      height: 24px;
+      color: #555;
+
+      &:hover {
+        background: #e5e5e5;
+      }
+    }
   }
 }
 

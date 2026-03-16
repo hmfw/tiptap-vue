@@ -27,3 +27,15 @@
 - 选中单元格淡蓝色高亮（`.selectedCell`）
 - 支持列宽拖拽（`.column-resize-handle`）
 - 横向溢出滚动（`.tableWrapper`）
+
+# 新增需求 ✅
+- 单元格聚焦时，单元格最上方和最左侧出来一个按钮
+- 上方按钮 弹出下拉菜单（移动列到左侧，移动列到右侧， 在左侧插入一列， 在右侧插入一列，删除列）
+- 左侧按钮 弹出下拉菜单（上移，下移，在上方插入一行，在下方插入一行，删除行）
+- 最右侧单元格聚焦时，右侧出现新增列按钮，在最后一列插入一列
+- 最底部单元格聚焦时，底部出现新增行按钮，在最后一行插入一行
+
+## 实现
+- `src/tiptap-ui/TableControls.tsx` - 浮动控件组件
+- `src/App.vue` - 注册 `<TableControls />`
+- `src/editor.scss` - 添加 `.table-cell-controls` 和 `.tcc-btn` 样式
