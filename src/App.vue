@@ -6,6 +6,7 @@ import { TaskItem, TaskList } from '@tiptap/extension-list'
 import { TextAlign } from '@tiptap/extension-text-align'
 import { Placeholder } from '@tiptap/extensions'
 import { Image } from '@tiptap/extension-image'
+import { Table, TableCell, TableHeader, TableRow } from '@tiptap/extension-table'
 
 import { ImageUpload } from './tiptap-extension/ImageUpload'
 
@@ -15,6 +16,7 @@ import TextStyleButton from './tiptap-ui/TextStyleButton'
 import TextAlignButton from './tiptap-ui/TextAlignButton'
 import ListButton from './tiptap-ui/ListButton'
 import ImageButton from './tiptap-ui/ImageButton'
+import TableButton from './tiptap-ui/TableButton'
 
 import './editor.scss'
 
@@ -47,6 +49,10 @@ const editor = useEditor({
       },
     }),
     ImageUpload,
+    Table.configure({ resizable: true }),
+    TableRow,
+    TableHeader,
+    TableCell,
   ],
 })
 
@@ -64,6 +70,8 @@ provide('editor', editor)
       <TextAlignButton />
       <div class="tiptap-separator"></div>
       <ImageButton />
+      <div class="tiptap-separator"></div>
+      <TableButton />
     </div>
     <EditorContent class="editor-content" :editor="editor" />
   </div>
