@@ -22,8 +22,8 @@ export default defineConfig(({ mode }) => {
         copyPublicDir: false,
         lib: {
           entry: './src/index.ts',
-          name: 'TiptapVue',
-          fileName: 'tiptap-vue',
+          name: 'TiptapEditor',
+          fileName: 'tiptap-editor',
           formats: ['es', 'umd'],
         },
         rollupOptions: {

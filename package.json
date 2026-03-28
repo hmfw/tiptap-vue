@@ -2,12 +2,12 @@
   "name": "@mario9/tiptap-editor",
   "version": "0.1.0",
   "type": "module",
-  "main": "./dist/tiptap-vue.umd.cjs",
-  "module": "./dist/tiptap-vue.js",
+  "main": "./dist/tiptap-editor.umd.cjs",
+  "module": "./dist/tiptap-editor.js",
   "exports": {
     ".": {
-      "import": "./dist/tiptap-vue.js",
-      "require": "./dist/tiptap-vue.umd.cjs"
+      "import": "./dist/tiptap-editor.js",
+      "require": "./dist/tiptap-editor.umd.cjs"
     },
     "./style.css": "./dist/style.css"
   },
